@@ -10,7 +10,7 @@
     
   </template>
   
-  <script setup>
+  <script>
   import axios from 'axios'
   export default {
   name: 'AllAssets',
@@ -24,7 +24,7 @@
   },
   methods: {
     getAllAssets() {
-      const that = this
+      const that = this;
       axios.get('/api/assets')
           .then(response => {
             // 成功获取响应，处理json数据
@@ -38,6 +38,6 @@
           })
     }
   }
-
+  }
   </script>
   

@@ -36,6 +36,25 @@
         </el-col>
       </el-row>
     </div>
+    <el-dialog title="新增入库" v-model="newAssetsDialogVisible">
+    
+    
+      <el-input v-model="form.id" label="id"></el-input>
+    
+    
+      <el-input v-model="form.assetsName" label="名称" ></el-input>
+   
+    
+      <el-input v-model="form.assetsDesc"  label="描述"></el-input>
+   
+      <el-input v-model="form.assetsUsage"  label="用途"></el-input>
+   
+
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="newAssetsDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="addNewItem()">确 定</el-button>
+  </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -50,7 +69,15 @@ export default {
   },
   data()  {
    return {
-    responseData: 'a'
+    responseData: 'a',
+    newAssetsDialogVisible: false,
+  
+    form:{
+      id:'',
+      assetsName:'',
+      assetsDesc:'',
+      assetsUsage:''
+    }
    } 
   },
   methods: {
@@ -95,6 +122,11 @@ export default {
             
             // 成功获取响应，处理json数据
             console.log(response.data);
+            if (response.data.assetsName === '' || response.data.assetsName === null) {
+            
+                this.form.id = response.data.id
+                this.newAssetsDialogVisible = true
+            }
             // 可以更新某个data属性，以在界面上显示信息
             this.responseData = response.data;
           })
@@ -111,6 +143,20 @@ export default {
       
       // 每100毫秒扫描一次
       const scanInterval = setInterval(scan, 100);
+    },
+    addNewItem () {
+       alert(this.form.id)
+             // 使用axios发送GET请求
+             axios.post("/api/addAssets",{data : this.form})
+          .then(response => {
+            
+            // 成功获取响应，处理json数据
+           alert(response.data)
+          })
+          .catch(error => {
+            alert(error)
+            console.error("请求错误:", error);
+          })
     }
   }
 }
