@@ -1,6 +1,9 @@
 # baby_assets_frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+包括用js调用浏览器，扫识别二维码。
+如果存在显示内容，如果不存在就创建新得一条记录。
+使用vite 代理指向后端。
+使用https 插件部署自定义证书
 
 ## Recommended IDE Setup
 
