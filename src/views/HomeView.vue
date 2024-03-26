@@ -37,10 +37,10 @@
           <el-input v-model="form.assetsName" type="text"></el-input>
         </el-form-item>
         <el-form-item label="描述">
-          <el-input v-model="form.assetsDesc" type="text"></el-input>
+          <el-input v-model="form.assetsDesc" type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="用途">
-          <el-input v-model="form.assetsUsage" type="text"></el-input>
+          <el-input v-model="form.assetsUsage" type="textarea"></el-input>
         </el-form-item>
       </el-form>
       <template v-slot:footer>
@@ -56,6 +56,7 @@
 <script>
 import jsQR from 'jsqr'
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 export default {
   name: 'QRScanner',
@@ -146,8 +147,10 @@ export default {
       axios
         .post('/api/addAssets', dataPost)
         .then((response) => {
+          ElMessage.success('添加成功')
+          this.responseData = dataPost
           // 成功获取响应，处理json数据
-          alert(response.data)
+          this.newAssetsDialogVisible = false
         })
         .catch((error) => {
           alert(error)
